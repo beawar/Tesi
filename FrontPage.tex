@@ -1,0 +1,50 @@
+
+\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
+\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
+
+
+%----------------------------------------------------------------------------------------
+%	TITLE PAGE
+%----------------------------------------------------------------------------------------
+
+\begin{titlepage}
+	\begin{center}
+		
+		\vspace{4cm}
+		{\scshape\LARGE \univname}\\\vspace{0.7cm} % University name
+		\textsc{\Large \deptname}\\[0.5cm] % Thesis type
+		\textsc{\large \facname}
+		
+		\vspace{2cm}
+		\begin{figure}[H]
+			\begin{center}
+				\includegraphics[height=8cm]{Immagini/logo}
+			\end{center}
+		\end{figure}
+		\vspace{2cm}
+		
+		
+		{\huge \bfseries \ttitle} % Thesis title
+		
+		\vspace{2cm}
+		
+		\begin{minipage}[t]{0.49\textwidth}
+			\begin{flushleft} \large
+				\emph{Relatore} \\
+				\supname % Supervisor name
+			\end{flushleft}
+		\end{minipage}
+%
+		\begin{minipage}[t]{0.49\textwidth}
+			\vspace{1cm}
+			\begin{flushright} \large
+				\emph{Laureando}\\
+				\authorname % Author name
+			\end{flushright}
+		\end{minipage}
+	
+		\vspace{1cm}
+		{\large \today}\\[4cm] % Date
+		
+	\end{center}
+\end{titlepage}

@@ -1,0 +1,130 @@
+\documentclass[
+11pt, % The default document font size, options: 10pt, 11pt, 12pt
+%oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+italian, % ngerman for German
+singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
+%draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
+%nolistspacing, % If the document is onehalfspacing or doublespacing, uncomment this to set spacing in lists to single
+%liststotoc, % Uncomment to add the list of figures/tables/etc to the table of contents
+%toctotoc, % Uncomment to add the main table of contents to the table of contents
+parskip, % Uncomment to add space between paragraphs
+%nohyperref, % Uncomment to not load the hyperref package
+headsepline, % Uncomment to get a line under the header
+%chapterinoneline, % Uncomment to place the chapter title next to the number on one line
+%consistentlayout, % Uncomment to change the layout of the declaration, abstract and acknowledgements pages to match the default layout
+]{MastersDoctoralThesis} % The class file specifying thse document structure
+
+\usepackage[utf8]{inputenc} % Required for inputting international characters
+\usepackage[T1]{fontenc} % Output font encoding for international characters
+
+\usepackage{palatino} % Use the Palatino font by default
+
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex} % Use the bibtex backend with the authoryear citation style (which resembles APA)
+
+% Bibliografia
+\addbibresource{bibliografia.bib} % The filename of the bibliography
+\usepackage[autostyle=true]{csquotes} % Required to generate language-dependent quotes in the bibliography
+
+\newcommand{\virgolette}[1]{``#1''}
+% Per l'allineamento delle immagini
+\usepackage[export]{adjustbox}
+
+% necessario per risolvere il problema del carattere invisibile per l'a capo
+\DeclareUnicodeCharacter{00A0}{ }
+
+% elenca anche i paragrafi nell'indice
+\setcounter{tocdepth}{6}
+
+% permetti di definire dei colori
+%\usepackage[usenames,dvipsnames]{color}
+
+% permette di inserire le immagini/tabelle esattamente dove viene usato il
+% comando \begin{figure}[H] ... \end{figure}
+% evitando che venga spostato in automatico
+\usepackage{float}
+
+% permette l'inserimento di url e di altri tipi di collegamento
+\usepackage[colorlinks=true]{hyperref}
+
+\hypersetup{
+	colorlinks=true, % false: boxed links; true: colored links
+	citecolor=black,
+	filecolor=black,
+	linkcolor=black, % color of internal links
+	urlcolor=Maroon  % color of external links
+}
+
+% permette al comando \url{...} di andare a capo a metà di un link
+\usepackage{breakurl}
+
+% immagini
+\usepackage{graphicx}
+
+% permette di riferirsi all'ultima pagina con \pageref{LastPage}
+\usepackage{lastpage}
+
+% tabelle su più pagine
+\usepackage{longtable}
+
+% per avere dei comandi in più da poter usare sulle tabelle
+\usepackage{booktabs}
+
+% tabelle con il campo X per riempire lo spazio rimanente sulla riga
+\usepackage{tabularx}
+
+% multirow per tabelle
+\usepackage{multirow}
+
+% permette di fare longtable larghe tutta la pagina (parametro x)
+\usepackage{tabu}
+
+% imposta lo spazio tra le righe di una tabella
+\setlength{\tabulinesep}{6pt}
+
+% personalizza l'intestazione e piè di pagina
+%\usepackage{fancyhdr}
+
+% permette di inserire caratteri speciali
+\usepackage{textcomp}
+
+% permette di aggiustare i margini e centrare tabelle e figure
+\usepackage{changepage}
+
+% Per numerare le tabelle e le figure con la sezione in cui si trovano 
+\usepackage{amsmath}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+
+% Use \ul{arg} to undlerline text
+\usepackage{soul}
+
+% Per le pagine in orientamento orizzontale
+\usepackage{pdflscape}
+\usepackage{afterpage}
+
+% Set vertical space in tables
+\def\arraystretch{1.5}
+
+
+%----------------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%----------------------------------------------------------------------------------------
+
+\thesistitle{Analisi e personalizzazione di portali B2B} % Your thesis title, this is used in the title and abstract, print it elsewhere with \ttitle
+\supervisor{Prof.ssa Ombretta Gaggi} % Your supervisor's name, this is used in the title page, print it elsewhere with \supname
+\examiner{} % Your examiner's name, this is not currently used anywhere in the template, print it elsewhere with \examname
+\degree{Laurea in Informatica} % Your degree name, this is used in the title page and abstract, print it elsewhere with \degreename
+\author{Beatrice Guerra} % Your name, this is used in the title page and abstract, print it elsewhere with \authorname
+\addresses{} % Your address, this is not currently used anywhere in the template, print it elsewhere with \addressname
+
+\subject{} % Your subject area, this is not currently used anywhere in the template, print it elsewhere with \subjectname
+\keywords{} % Keywords for your thesis, this is not currently used anywhere in the template, print it elsewhere with \keywordnames
+\university{Università degli Studi di Padova} % Your university's name and URL, this is used in the title page and abstract, print it elsewhere with \univname
+\department{Dipartimento di Matematica \virgolette{Tullio Levi-Civita}} % Your department's name and URL, this is used in the title page and abstract, print it elsewhere with \deptname
+\faculty{Corso di Laurea in Informatica} % Your faculty's name and URL, this is used in the title page and abstract, print it elsewhere with \facname
+
+\AtBeginDocument{
+	\hypersetup{pdftitle=\ttitle} % Set the PDF's title to your title
+	\hypersetup{pdfauthor=\authorname} % Set the PDF's author to your name
+	\hypersetup{pdfkeywords=\keywordnames} % Set the PDF's keywords to your keywords
+}
