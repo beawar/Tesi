@@ -59,7 +59,7 @@
 %  Simple interface for the user  to customize the chapter titles 
 \ProvideDocumentCommand{\abovechapterskip}{}{\vspace*{20pt}}
 \ProvideDocumentCommand{\chapterbelowskip}{}{\vspace*{40pt}}
-\ProvideDocumentCommand{\chapterinbetweenskip}{}{\vspace*{20pt}}
+\ProvideDocumentCommand{\chapterinbetweenskip}{}{\vspace*{15pt}}
 \ProvideDocumentCommand{\autodot}{}{}
 \ProvideDocumentCommand{\mdtChapapp}{}{}
 \ProvideDocumentCommand{\chapteralign}{}{\raggedright}
@@ -340,8 +340,10 @@ KOMA-script documentation for details.}]{fancyhdr}
 \DeclareDocumentCommand{\abstracttitlefont}{}{}
 \newcommand{\byname}{by}
 \newcommand{\abstractname}{Abstract}
+\addto\captionsitalian{\renewcommand{\abstractname}{Abstract}}
 \providecaptionname{german,ngerman,austrian,naustrian}{\byname}{von}
 \providecaptionname{american,australian,british,canadian,english,newzealand,UKenglish,USenglish}{\byname}{by}
+\providecaptionname{italian}{\byname}{di}
 \ifbool{consistentlayout}{
 	\DeclareDocumentEnvironment{abstract}{ O{} }{%
 		\addchap*{\abstractname}%
@@ -409,9 +411,11 @@ KOMA-script documentation for details.}]{fancyhdr}
 
 \usepackage{xcolor}
 \colorlet{mdtRed}{red!50!black}
+\definecolor{navyblue}{rgb}{17, 78, 175}
 \newcommand{\acknowledgementname}{Acknowledgements}
 \providecaptionname{american,australian,british,canadian,english,newzealand,UKenglish,USenglish} {\acknowledgementname}{Acknowledgements} % Acknowledgement text for English countries
 \providecaptionname{german,ngerman,austrian,naustrian}{\acknowledgementname}{Danksagung} % Acknowledgement text for Germanic countries
+\providecaptionname{italian}{\acknowledgementname}{Ringraziamenti}
 
 \ifbool{consistentlayout}{
 	\DeclareDocumentEnvironment{acknowledgements}{}{%
@@ -522,9 +526,9 @@ bookmarksopen=true,
 bookmarksopenlevel=0,
 hypertexnames=false,
 colorlinks=true, % Set to false to disable coloring links
-citecolor=magenta, % The color of citations
-linkcolor=red, % The color of references to document elements (sections, figures, etc)
-urlcolor=mdtRed, % The color of hyperlinks (URLs)
+citecolor=black, % The color of citations
+linkcolor=black, % The color of references to document elements (sections, figures, etc)
+urlcolor=navyblue, % The color of hyperlinks (URLs)
 pdfstartview={FitV},
 unicode,
 breaklinks=true,

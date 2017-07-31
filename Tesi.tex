@@ -1,5 +1,7 @@
 \input{comandi}
 \input{layout}
+\makeglossaries
+\include{Glossario}
 
 \begin{document}
 	
@@ -43,12 +45,16 @@
 	%\include{Appendices/AppendixB}
 	%\include{Appendices/AppendixC}
 	
+	\printglossary[type=\acronymtype, title=Acronimi, toctitle=Acronimi]
+	\printglossaries[title=Glossario, toctitle=Glossario]
+	
 	%----------------------------------------------------------------------------------------
 	%	BIBLIOGRAPHY
 	%----------------------------------------------------------------------------------------
 	
 	\printbibliography[heading=bibintoc]
 	
+
 	%----------------------------------------------------------------------------------------
 	
 	
