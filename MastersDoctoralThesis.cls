@@ -262,7 +262,9 @@
 \geometry{
 	headheight=4ex,
 	includehead,
-	includefoot
+	includefoot,
+%	inner=4cm,
+%	outer=2cm
 }
 
 \raggedbottom
@@ -533,7 +535,7 @@ hypertexnames=false,
 colorlinks=true, % Set to false to disable coloring links
 citecolor=black, % The color of citations
 linkcolor=black, % The color of references to document elements (sections, figures, etc)
-urlcolor=navyblue, % The color of hyperlinks (URLs)
+urlcolor=darkblue, % The color of hyperlinks (URLs)
 pdfstartview={FitV},
 unicode,
 breaklinks=true,

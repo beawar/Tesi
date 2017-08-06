@@ -1,6 +1,7 @@
 \documentclass[
 11pt, % The default document font size, options: 10pt, 11pt, 12pt
 %oneside, % Two side (alternating margins) for binding by default, uncomment to switch to one side
+openright,
 italian, % ngerman for German
 singlespacing, % Single line spacing, alternatives: onehalfspacing or doublespacing
 %draft, % Uncomment to enable draft mode (no pictures, no links, overfull hboxes indicated)
@@ -36,7 +37,7 @@ headsepline, % Uncomment to get a line under the header
 \setcounter{tocdepth}{6}
 
 % permetti di definire dei colori
-%\usepackage[usenames,dvipsnames]{color}
+\usepackage{xcolor}
 
 % permette di inserire le immagini/tabelle esattamente dove viene usato il
 % comando \begin{figure}[H] ... \end{figure}
@@ -50,9 +51,10 @@ headsepline, % Uncomment to get a line under the header
 	colorlinks=true, % false: boxed links; true: colored links
 	citecolor=black,
 	filecolor=black,
-	linkcolor=black, % color of internal links
+	linkcolor=RoyalBlue, % color of internal links
 	urlcolor=Maroon  % color of external links
 }
+
 
 % permette al comando \url{...} di andare a capo a metà di un link
 \usepackage{breakurl}
@@ -107,6 +109,11 @@ headsepline, % Uncomment to get a line under the header
 
 % glossary
 \usepackage[xindy, acronym]{glossaries}
+
+\definecolor{darkblue}{RGB}{15, 83, 193}
+\renewcommand*{\glstextformat}[1]{\textcolor{darkblue}{#1}}
+
+\oddsidemargin=30pt \evensidemargin=20pt%impostano i margini
 
 
 %----------------------------------------------------------------------------------------

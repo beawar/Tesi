@@ -4,9 +4,12 @@
 \include{Glossario}
 
 \begin{document}
-	
+	\pagestyle{plain} % Default to the plain heading style until the thesis style is called for the body content
 	\include{FrontPage}
-	
+	\oddsidemargin=30pt \evensidemargin=20pt%impostano i margini
+%	\cleardoublepage
+%	\setcounter{page}{1}
+	\frontmatter % Use roman page numbering style (i, ii, iii, iv...) for the pre-content pages
 	\include{Citazione}
 	
 %	\cleardoublepage
@@ -29,8 +32,8 @@
 	
 	\include{Chapters/1-Introduzione}
 	\include{Chapters/2-B2B} 
-	%\include{Chapters/Chapter3}
-	%\include{Chapters/Chapter4} 
+	\include{Chapters/3-Stage}
+	\include{Chapters/4-Conclusioni} 
 	%\include{Chapters/Chapter5} 
 	
 	%----------------------------------------------------------------------------------------
@@ -45,8 +48,8 @@
 	%\include{Appendices/AppendixB}
 	%\include{Appendices/AppendixC}
 	
-	\printglossary[type=\acronymtype, title=Acronimi, toctitle=Acronimi]
-	\printglossary[title=Glossario, toctitle=Glossario]
+	\printglossary[type=\acronymtype, title=Acronimi, toctitle=Acronimi, nonumberlist]
+	\printglossary[title=Glossario, toctitle=Glossario, nonumberlist]
 	
 	%----------------------------------------------------------------------------------------
 	%	BIBLIOGRAPHY
