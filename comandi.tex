@@ -33,9 +33,6 @@ headsepline, % Uncomment to get a line under the header
 % necessario per risolvere il problema del carattere invisibile per l'a capo
 \DeclareUnicodeCharacter{00A0}{ }
 
-% elenca anche i paragrafi nell'indice
-\setcounter{tocdepth}{6}
-
 % permetti di definire dei colori
 \usepackage{xcolor}
 
@@ -114,6 +111,8 @@ headsepline, % Uncomment to get a line under the header
 \renewcommand*{\glstextformat}[1]{\textcolor{darkblue}{#1}}
 
 \oddsidemargin=30pt \evensidemargin=20pt%impostano i margini
+
+\setcounter{secnumdepth}{3}
 
 
 %----------------------------------------------------------------------------------------
