@@ -145,6 +145,9 @@ Il B2B di Sanmarco Informatica è un prodotto completo ed al contempo in continu
 \end{itemize}
 In questa relazione viene trattata solamente la versione standard, l'unica su cui si è incentrato lo stage, mentre verrà solamente presentata la versione con web-services.
 
+Ogni B2B venduto è personalizzato, anche solo in minima parte, secondo le richieste del cliente. È raro dunque incontrare due portali identici, poiché per quanto essi possano assomigliarsi per forma e contenuti, vi sono sempre delle funzionalità da una parte che l'altra ha, per scelta del cliente, nascoste.
+Esistono versioni molto basilari, in cui viene personalizzato solamente l'aspetto o, ad esempio, il menu, ed altre in cui ritrovare lo standard è quasi un'impresa. Molto spesso l'utilizzo sempre più massivo del portale fa sì che sorgano proposte da parte dell'utilizzatore, che vede nel B2B la soluzione per snellire alcune pratiche altrimenti richiedenti l'uso del gestionale.
+
 \subsection{Funzionalità principali}
 In generale, il portale è composto da moduli componibili, in modo tale da essere di per sè un prodotto funzionante, ma anche facilmente personalizzabile secondo le necessità del cliente. I moduli principali sono quello dell'ordine, delle interrogazioni, l'area amministrativa, l'area dei documenti e l'agenda. Tutte queste aree sono attivabili o disattivabili per ogni utente, a seconda del suo gruppo di appartenenza. 
 
@@ -165,10 +168,37 @@ L'area delle interrogazioni è dedicata alla ricerca di schede e informazioni ri
 Il catalogo prodotti nella sua versione standard rispetta i requisiti del modello B2B di successo. Esso è presentato in varie modalità, secondo le convenzioni del web, tra cui la visualizzazione a lista (con più dettagli per ogni articolo) e quella a griglia, in cui hanno un ruolo importante le immagini. Questa seconda modalità è di solito rivolta a chi con il proprio B2B vuole rispecchiare gli e-commerce più famosi, come Amazon o Ebay, piuttosto che a clienti che vendono prodotti tecnici di cui sono più importanti le caratteristiche della forma. Il catalogo B2B non solo permette di effettuare ordini secondo le abitudini degli utenti (il 66\% degli utenti di Internet ha fatto acquisti online nel 2016\autocite{eurostat}), ma ha anche la funzione di sostituire i cataloghi stampati che gli agenti di vendita propongono al cliente, in quanto è legato all'utente autenticato ed è una fonte sempre aggiornata. Ad ogni prodotto è possibile associare la disponibilità, aggiornata in tempo reale rispetto al gestionale, riducendo così significativamente il numero di ordini con prodotti non disponibili o non più in produzione. Per l'agente questa è una caratteristica importante, in quanto non è più necessario mettersi in contatto con la sede centrale per conoscere cambiamenti effettuati ai prodotti, anche in termini di prezzi e listini.
 
 \subsection{Struttura del progetto}
-Come è strutturato il B2B, sia a livello funzionale, sia a livello progettuale
+Passando agli aspetti implementativi, il B2B di 4words è strutturato gerarchicamente in vari progetti, con in testa alla gerarchia la versione base e al di sotto varie versioni dipendenti dalle soprastanti. In particolare la versione standard precedentemente citata è così formata:
+\begin{itemize}
+	\item B2B Base: costituisce gran parte del back-end dell'applicazione. Contiene pressoché tutta la logica del portale e non ha alcun tipo di riferimento al front-end. Si occupa principalmente di gestire i dati del gestionale, riproducendoli sotto forma di oggetti.
+	\item B2B Prime: è il nucleo del front-end. Include le librerie grafiche e predispone la totalità delle pagine navigabili nel portale. Si occupa anche di collegare il front-end alle classi del back-end, aggiungendo o aggiustando gli oggetti per renderli usufruibili dalla parte grafica.
+	\item B2B R14: costituisce l'ultima grossa release di creazione del portale e rappresenta l'ultimo strato comune a tutti i progetti. In esso vengono definiti i denominatori comuni per creare uno standard stabile e duraturo, oltre che compatibile con i molti moduli disponibili per l'installazione.
+\end{itemize}
+Questi tre progetti formano quello che si è soliti definire lo standard del B2B. Esso rende l'installazione per il cliente semplice e immediata in quanto configura già di suo la maggior parte delle funzionalità.
+Da questi tre progetti si sviluppano poi una serie di moduli tra loro indipendenti, tra cui:
+\begin{itemize}
+	\item B2B TCE: è il modulo che integra il B2B con il configuratore di prodotto offerto dall'azienda.
+%	TODO: da verificare
+	\item B2B Rest Services: include le librerie necessarie per interrogare le \Gls{API} di servizi \Gls{REST}, come ad esempio di \Gls{Magento} o \Gls{Prestashop}. È il ponte tra il B2B e i vari \Gls{CMS} disponibili online e il suo scopo è proprio quello di agevolare l'interfacciamento tra questi due tipi di contenuto.
+	\item B2B Rest Client: questo modulo è un sotto-pacchetto diretto del B2B Rest Services. Mette a disposizione delle chiamate standard e alcuni \textit{task} per operazioni comuni.
+\end{itemize}
+A partire da questi progetti vengono quindi creati i prodotti finali venduti ai clienti. Ogni cliente ha il suo progetto dedicato, in quanto sorgono in continuazione nuove richieste, sviluppate quindi in un ambiente indipendente, in modo tale da non creare conflitti con implementazioni contrarie di altri clienti.
+
+Il B2B è strutturato secondo il pattern \Gls{MVC}, dove il \textit{model} è formato dalle classi che si interfacciano con i database ed i programmi \Gls{RPG} dell'\Gls{AS400}, chiamate relativamente \textit{Data Provider} e \textit{Program Provider}; la \textit{view} è composta dalle pagine \Gls{XHTML} e dai \textit{Backing Bean}, nei quali sono contenuti alcuni dei componenti dell'interfaccia utente, oltre che le proprietà riportate poi nella pagina, secondo il modello proposto dal \gls{framework} \Gls{JSF}; il \textit{controller} è invece composto dai \textit{Manager}, che contengono le funzioni condivise e collegano rispettivamente la \textit{view} al \textit{model} (e viceversa). Secondo le norme di programmazione prestabilite per il progetto B2B, dunque, non vi possono essere comunicazioni dirette tra le pagine o i \textit{backing bean} e i \textit{data} e \textit{program provider}; inoltre, solo i \textit{manager} si relazionano con i \textit{data provider}, nei quali non vi è alcuna chiamata nella direzione opposta. Le funzioni reali del calcolo si trovano nei \textit{manager}, i quali insieme ai \textit{data provider} sono basati su \Gls{Spring Core}, che permette così di sfruttare i contesti e la \textit{dependency injection} anche nel web.
+
+\subsubsection{Vantaggi e svantaggi}
+La struttura appena descritta presenta alcuni vantaggi e svantaggi importanti.
+\paragraph{Vantaggi}
+
+\paragraph{Svantaggi}
+
 \subsection{Versionamento}
 Come viene versionato
+\subsubsection{Vantaggi e svantaggi}
+
 \subsection{Tecnologie utilizzate}
 Analisi delle tecnologie utilizzate
+
 \subsubsection{Back-end}
+
 \subsubsection{Front-end}
