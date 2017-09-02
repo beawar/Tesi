@@ -172,15 +172,14 @@ Passando agli aspetti implementativi, il B2B di 4words è strutturato gerarchica
 \begin{itemize}
 	\item B2B Base: costituisce gran parte del back-end dell'applicazione. Contiene pressoché tutta la logica del portale e non ha alcun tipo di riferimento al front-end. Si occupa principalmente di gestire i dati del gestionale, riproducendoli sotto forma di oggetti.
 	\item B2B Prime: è il nucleo del front-end. Include le librerie grafiche e predispone la totalità delle pagine navigabili nel portale. Si occupa anche di collegare il front-end alle classi del back-end, aggiungendo o aggiustando gli oggetti per renderli usufruibili dalla parte grafica.
-	\item B2B R14: costituisce l'ultima grossa release di creazione del portale e rappresenta l'ultimo strato comune a tutti i progetti. In esso vengono definiti i denominatori comuni per creare uno standard stabile e duraturo, oltre che compatibile con i molti moduli disponibili per l'installazione.
+	\item B2B R14: costituisce l'ultima grossa release di creazione del portale e rappresenta l'ultimo strato comune a tutti i progetti. È il vero e proprio applicativo ed in esso vengono definiti i denominatori comuni per creare uno standard stabile e duraturo, oltre che compatibile con i molti moduli disponibili per l'installazione.
 \end{itemize}
 Questi tre progetti formano quello che si è soliti definire lo standard del B2B. Esso rende l'installazione per il cliente semplice e immediata in quanto configura già di suo la maggior parte delle funzionalità.
 Da questi tre progetti si sviluppano poi una serie di moduli tra loro indipendenti, tra cui:
 \begin{itemize}
 	\item B2B TCE: è il modulo che integra il B2B con il configuratore di prodotto offerto dall'azienda.
-%	TODO: da verificare
-	\item B2B Rest Services: include le librerie necessarie per interrogare le \Gls{API} di servizi \Gls{REST}, come ad esempio di \Gls{Magento} o \Gls{Prestashop}. È il ponte tra il B2B e i vari \Gls{CMS} disponibili online e il suo scopo è proprio quello di agevolare l'interfacciamento tra questi due tipi di contenuto.
-	\item B2B Rest Client: questo modulo è un sotto-pacchetto diretto del B2B Rest Services. Mette a disposizione delle chiamate standard e alcuni \textit{task} per operazioni comuni.
+	\item B2B Rest Service: include le librerie necessarie per interrogare le \Gls{API} di servizi \Gls{REST}, come ad esempio di \Gls{Magento} o \Gls{Prestashop}. È il ponte tra il B2B e i vari \Gls{CMS} disponibili online e il suo scopo è proprio quello di agevolare l'interfacciamento tra questi due tipi di contenuto.
+	\item B2B Rest Client: costituisce l'interfaccia grafica dell'integrazione B2B con i servizi web.
 \end{itemize}
 A partire da questi progetti vengono quindi creati i prodotti finali venduti ai clienti. Ogni cliente ha il suo progetto dedicato, in quanto sorgono in continuazione nuove richieste, sviluppate quindi in un ambiente indipendente, in modo tale da non creare conflitti con implementazioni contrarie di altri clienti.
 
@@ -203,8 +202,47 @@ La struttura gerarchica fortemente basata sull'ereditarietà facilita anche chi 
 Uno degli svantaggi principali nell'utilizzo di questa struttura è che con aggiornamenti del pacchetto standard importanti, laddove il cliente ha un portale molto personalizzato, c'è il rischio che le personalizzazioni si invalidino, richiedendo di fatto un lungo lavoro di \virgolette{riporto} delle classi personalizzate per mantenerle compatibili con la nuova versione standard. Vi sono di fatto due possibilità: aggiornare l'intero pacchetto standard e modificare di conseguenza la parte personalizzata o procedere al contrario, aggiornando solamente ciò che aggiunge funzionalità o che corregge comportamenti anomali, senza modificare i metodi standard richiamati dalle classi personalizzate. Nel primo caso, come detto, il lavoro può risultare molto lungo, mentre nel secondo caso si rischia di arrivare ad uno stato di inconsistenza, dove più classi richiedono che uno stesso metodo svolga operazioni diverse, dovendo quindi comunque effettuare modifiche a svariate personalizzazioni. Tutto questo prevede anche una lunga fase di test, ai quali non viene mai dedicato il giusto tempo.
 
 \subsection{Versionamento}
-Lo strumento di versionamento utilizzato per tutti i progetti riguardanti il B2B è \Gls{RTC}. Esso si basa su IBM Jazz, una piattaforma estendibile che aiuta i team ad integrare i task durante il ciclo di vita del software. RTC è costruito su una architettura client-server ed è integrabile con molti altri prodotti, tra cui \gls{Git}, \Gls{Jenkins} e \Gls{Maven}. Per quanto riguarda la funzione di versionamento, RTC è così strutturato: sul server sono presenti gli stream, dei contenitori contenenti uno o più progetti, accessibili solamente tramite invito. Gli utenti invitati possono avere vari ruoli, tra cui quello di \virgolette{scrum master} e quello di sviluppatore
+Lo strumento di versionamento utilizzato per tutti i progetti riguardanti il B2B è \Gls{RTC}. Esso si basa su IBM Jazz, una piattaforma estendibile che aiuta i team ad integrare i task durante il ciclo di vita del software. RTC è costruito su una architettura client-server ed è integrabile con molti altri prodotti, tra cui \gls{Git}, \Gls{Jenkins} e \Gls{Maven}. Per quanto riguarda la funzione di versionamento, RTC è così strutturato: sul server sono presenti gli stream, dei contenitori contenenti uno o più progetti, accessibili solamente tramite invito. Agli utenti invitati viene attribuito un ruolo, ad esempio \textit{scrum master} o membro del team (solitamente lo sviluppatore senza permessi amministrativi), che determina i permessi a loro associati. 
+
+RTC è strutturato secondo lo schema in \hyperref[fig:rtc-struttura]{figura \ref{fig:rtc-struttura}}.
+\begin{figure}[H]
+	\centering
+	\includegraphics{Immagini/rtc-struttura.png}
+	\caption{Struttura del sistema di versionamento RTC}
+	\label{fig:rtc-struttura}
+\end{figure}
+Il sistema è centralizzato sullo \textit{stream}, sul quale confluiscono tutte le modifiche e dal quale gli utenti scaricano i progetti. Vi è poi un livello intermedio, appartenente ai singoli utenti, che si trova sul server e permette agli utenti di salvare le proprie modifiche online, così da non correre il rischio di perderle a causa di malfunzionamenti hardware. Questo strato è chiamato \textit{repository workspace}. Infine, il livello più basso è quello che risiede in locale, nel pc in cui si lavora. Le operazioni tra livelli hanno nomi specifici: il \textit{check-in} è il trasferimento delle modifiche dal \textit{workspace} locale a quello remoto; con \textit{deliver} si intende il trasferimento delle modifiche dal \textit{workspace} remoto allo \textit{stream}. Con questa operazione le modifiche diventano effettive e scaricabili da tutti gli utenti, i quali devono accettarle (\textit{accept}) per trasferirle al proprio \textit{workspace} remoto e quindi riportarle in ambiente locale tramite l'operazione \textit{load}.
+
+Le funzionalità principali di RTC utilizzate per lo sviluppo del B2B sono:
+\begin{itemize}
+	\item \textit{work item}: sono il meccanismo sui cui si basa RTC per tracciare e coordinare i task di sviluppo e il flusso di lavoro. Sono il collegamento tra varie funzionalità di RTC, come le \textit{build} e i \textit{change set} (l'insieme delle modifiche associate, appunto, al work item). I work item possono assumere una categoria diversa a seconda del loro contesto, come ad esempio \virgolette{implementazione} o \virgolette{bug}, per distinguere se le modifiche rilasciate costituiscono una nuova implementazione o risolvono una anomalia presente nel codice.
+	\item Controllo dei sorgenti: è un sistema di controllo di versione costruito sulla piattaforma Jazz. Offre supporto per lo sviluppo parallelo con modello agile, integrando anche un sistema di gestione degli errori.
+	\item Pianificazione: il componente per la pianificazione fornisce uno strumento di assistenza nell'organizzazione e svolgimento di progetti agile e non. Per lo sviluppo agile permette di salvare lo stato dei lavori ad una certa release o ad uno sprint e di tenere traccia del progresso durante le iterazioni, bilanciando il lavoro tra gli sviluppatori. Questo modello viene utilizzato soprattutto per lo sviluppo dei progetti standard, in quanto le personalizzazioni sono solitamente affidate ad una o due persone.
+\end{itemize}
+RTC è usato tramite la sua integrazione per Eclipse, l'IDE di sviluppo del B2B. Un tipico esempio di utilizzo di RTC è presentato in \hyperref[fig:rtc]{figura \ref{fig:rtc}}.
+\begin{figure}[H]
+	\centering
+	\includegraphics[width=14cm]{Immagini/rtc-task-flow.png}
+	\caption{Flusso di lavoro tipico di RTC}
+	\label{fig:rtc}
+\end{figure}
+
 \subsubsection{Vantaggi e svantaggi}
+Per analizzare i vantaggi e gli svantaggi di questo strumento, viene fatto un confronto con Git.
+\paragraph*{Modello di repository}
+\begin{itemize}
+	\item[\textbf{Git}:] distribuito. I vari \textit{repository} agiscono come peer e gli utenti hanno solitamente una copia locale con tutta la storia dei cambiamenti in aggiunta a quella in cui stanno lavorando.
+	\item[\textbf{RTC}:] client-server. Gli utenti accedono ad un \textit{repository} principale (lo \textit{stream}) tramite un client; tipicamente in locale viene conservata solamente la copia di lavoro del progetto e i cambiamenti devono essere inviati allo \textit{stream} prima di essere propagati agli altri utenti.
+\end{itemize}
+Il vantaggio che un sistema centralizzato ha rispetto ad uno distribuito è che lo spazio richiesti per mantenere in locale la copia del progetto è limitato alle sole dimensioni dei file del progetto stesso. Questo comporta però la necessità di essere collegati in rete anche solo per consultare le modifiche apportate ad un file, che non sono disponibili in locale. Questo comportamento rappresenta anche il seguente svantaggio: se per un progetto di un cliente lo standard rilasciato non è aggiornato con le ultime modifiche presenti sullo \textit{stream}, un nuovo componente del team che dovrà lavorare su quel progetto scaricherà una versione diversa da quella del cliente. Non c'è pertanto la sicurezza che quanto modificato funzioni effettivamente, se non aggiornando il pacchetto standard intero, operazione rischiosa se fatta da tale nuova persona, che può non conoscere approfonditamente tutte le personalizzazioni del cliente.
+
+Per ovviare a questo problema sono possibili varie strategie: la prima è un passaggio manuale della versione standard operativa dal cliente tra lo sviluppatore che si è occupato del progetto e il nuovo arrivato. Questo, oltre a non essere sempre possibile, presenta alcuni problemi: nel caso in cui non si voglia aggiornare tutto il pacchetto standard del cliente con la versione corrente dello \textit{stream}, ma solo con alcune modifiche (correttive ad esempio), diventa necessario comunicare agli altri detentori del progetto quali work item sono stati scaricati o che modifiche sono state fatte, in modo tale che possano essere riportate in tutte le versioni locali. Una operazione simile è del tutto contraria alle logiche e alle regole dei sistemi di versionamento. La seconda opzione è quella di creare nello \textit{stream} dei clienti una copia dei progetti standard, cosicché ogni progetto cliente sia indipendente. Questa strategia richiede però un impegno maggiore, soprattutto in termini di manutenibilità. Una ulteriore possibilità è quella di creare delle release per i vari progetti clienti, in modo tale che il nuovo componente possa scaricare lo \textit{stream} standard alla release del cliente.
+
+\paragraph*{Gestione della concorrenza}
+\begin{itemize}
+	\item[\textbf{Git}:] merge. Le modifiche possono avvenire in modo concorrente e l'utente è avvisato di possibili conflitti quando vuole eseguire un aggiornamento del \textit{repository}. Questo conflitto può essere risolto direttamente dal sistema o manualmente dall'utente per poi inviare la nuova versione agli utenti.
+	\item[\textbf{RTC}:] merge o lock. Sebbene sia disponibile anche il modello \textit{lock}, in cui le modifiche non sono permesse finché l'utente non chiede e riceve il \textit{lock} esclusivo sul file, per il B2B è utilizzato il sistema di \textit{merge}, come in Git.
+\end{itemize}
 
 \subsection{Tecnologie utilizzate}
 Analisi delle tecnologie utilizzate
