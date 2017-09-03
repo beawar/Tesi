@@ -1,13 +1,15 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                ACRONIMI
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newglossaryentry{IBM}{
-	type=\acronymtype, 
-	name={IBM}, 
-	description={International Business Machines Corporation}, 
-	first={IBM \glsadd{ibmg}}, 
-	see=[Glossary:]{ibmg}
-}
+\newacronym[see={[Glossary:]{ibmg}}]{IBM}
+{IBM}{International Business Machines Corporation}
+%\newglossaryentry{IBM}{
+%	type=\acronymtype, 
+%	name={IBM}, 
+%	description={International Business Machines Corporation}, 
+%	first={IBM \glsadd{ibmg}}, 
+%	
+%}
 
 \newglossaryentry{ERP}{
 	type=\acronymtype, 
@@ -173,7 +175,31 @@
 	description={Rational Team Concert},
 	first={RTC (Rational Team Concert)},
 	see=[Glossary:]{rtcg}
-	}
+}
+
+\newglossaryentry{JSP}{
+	type=\acronymtype,
+	name={JSP},
+	description={JavaServer Pages},
+	first={JSP (JavaServer Pages)},
+	see=[Glossary:]{jspg}
+}
+
+\newglossaryentry{DAO}{
+	type=\acronymtype,
+	name={DAO},
+	description={Data Access Object},
+	first={DAO (Data Access Object)},
+	see=[Glossary:]{daog}
+}
+
+\newglossaryentry{el}{
+	type=\acronymtype,
+	name={EL},
+	description={Expression Language},
+	first={Expression Language (EL)},
+	see=[Glossary:]{elg}
+}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                GLOSSARIO
@@ -395,6 +421,44 @@
 	name={Maven},
 	description={Strumento per la compilazione automatizzata usato principalmente per i progetti Java}
 }
+
+\newglossaryentry{JavaEE}{
+	name={JavaEE},
+	description={Enterprise Edition della Java Platform, anche nota come J2EE (Java 2 Enterprise Edition), è una specifica le cui implementazioni vengono principalmente sviluppate in linguaggio di programmazione Java e ampiamente utilizzata nella programmazione Web},
+	first={JavaEE (Enterprise Edition)}
+}
+
+\newglossaryentry{servlet}{
+	name={servlet},
+	description={Oggetti scritti in linguaggio Java che operano all'interno di un server web}
+}
+
+\newglossaryentry{jspg}{
+	name={JavaServer Pages},
+	description={Tecnologia di programmazione Web in Java per lo sviluppo della logica di presentazione (tipicamente secondo il pattern MVC) di applicazioni Web, fornendo contenuti dinamici in formato HTML o XML}
+}
+
+\newglossaryentry{daog}{
+	name={Data Access Object},
+	description={Pattern architetturale per la gestione della persistenza: si tratta fondamentalmente di una classe che rappresenta un'entità tabellare di un database relazionale, usata principalmente in applicazioni web per stratificare e isolare l'accesso al data layer da parte della business logic, creando un maggiore livello di astrazione ed una più facile manutenibilità}
+}
+
+\newglossaryentry{facelets}{
+	name={facelets},
+	description={Sistema di template per il web open source, tramite costrutti XML. È la tecnologia utilizzata per creare l'interfaccia utente in JSF}
+}
+
+\newglossaryentry{IoC}{
+	name={Inversion of Control},
+	description={Pattern per cui un componente di livello applicativo riceve il controllo da un componente appartenente a un libreria riusabile. Questo schema ribalta quello tradizionale della programmazione procedurale, dove il codice applicativo svolge i propri compiti richiamando (e quindi passando il controllo a) procedure di libreria},
+	first={Inversion of Control (IoC)}
+}
+
+\newglossaryentry{elg}{
+	name={Expression Language},
+	description={Linguaggio di scripting che permette di connettere le pagine JSF al back-end Java}
+}
+
 
 
 
