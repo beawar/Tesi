@@ -1,21 +1,20 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %                ACRONIMI
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\newacronym[see={[Glossary:]{ibmg}}]{IBM}
-{IBM}{International Business Machines Corporation}
-%\newglossaryentry{IBM}{
-%	type=\acronymtype, 
-%	name={IBM}, 
-%	description={International Business Machines Corporation}, 
-%	first={IBM \glsadd{ibmg}}, 
-%	
-%}
+
+\newglossaryentry{IBM}{
+	type=\acronymtype, 
+	name={IBM}, 
+	description={International Business Machines Corporation}, 
+	first={IBM},
+	see=[Glossary:]{ibmg}
+}
 
 \newglossaryentry{ERP}{
 	type=\acronymtype, 
 	name={ERP}, 
 	description={Enterprise Resource Planning}, 
-	first={Enterprise Resource Planning (ERP) \glsadd{erpg}}, 
+	first={Enterprise Resource Planning (ERP)}, 
 	see=[Glossary:]{erpg}
 }
 
@@ -199,6 +198,22 @@
 	description={Expression Language},
 	first={Expression Language (EL)},
 	see=[Glossary:]{elg}
+}
+
+\newglossaryentry{EJB}{
+	type=\acronymtype,
+	name={EJB},
+	description={Enterprise JavaBeans},
+	first={Enterprise JavaBeans (EJB)},
+	see=[Glossary:]{ejbg}
+}
+
+\newglossaryentry{URL}{
+	type=\acronymtype,
+	name={URL},
+	description={Uniform Resource Locator},
+	first={URL},
+	see=[Glossary:]{urlg}
 }
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -458,6 +473,22 @@
 	name={Expression Language},
 	description={Linguaggio di scripting che permette di connettere le pagine JSF al back-end Java}
 }
+
+\newglossaryentry{ejbg}{
+	name={Enterprise JavaBeans},
+	description={Componenti che implementano la logica di business in un'applicazione JavaEE}
+}
+
+\newglossaryentry{descrittore di distribuzione}{
+	name={descrittore di distribuzione},
+	description={File XML che specifica opzioni di configurazione e di contenitore per un'applicazione o un modulo}
+}
+
+\newglossaryentry{urlg}{
+	name={URL},
+	description={Sequenza di caratteri che identifica univocamente l'indirizzo di una risorsa in Internet, tipicamente presente su un host server, come ad esempio un documento, un'immagine o un video, rendendola accessibile ad un client}
+}
+
 
 
 
