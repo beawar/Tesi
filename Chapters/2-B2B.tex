@@ -93,7 +93,7 @@ Il successo del B2B dipende anche da alcuni fattori esterni, che possono non der
 
 In conclusione, il modello di B2B ottimale che soddisfa a pieno i clienti ha quattro caratteristiche: è facile da usare, ha molte funzionalità, è affidabile ed offre prestazioni elevate.
 
-\section{Il B2B di 4words}
+\section{Il B2B di 4words}\label{sec:b2b-smi}
 Il B2B di Sanmarco Informatica è un prodotto completo ed al contempo in continua evoluzione. Svolge tutte le funzionalità base che un buon B2B dovrebbe avere e si integra pienamente con gli altri servizi dell'azienda, in particolar modo con il gestionale, agevolando così attività quali l'inserimento e la gestione degli ordini, la gestione dei documenti e degli appuntamenti, la visualizzazione del catalogo e la configurazione di prodotti. Il B2B è fornito in varie versioni per adattarsi meglio alle esigenze dei clienti:
 \begin{itemize}
 	\item versione standard (il più diffuso);
@@ -153,6 +153,7 @@ A partire da questi progetti vengono quindi creati i prodotti finali venduti ai 
 
 Il B2B è strutturato secondo il pattern \Gls{MVC}. Questo pattern è individuabile in più livelli:
 \begin{itemize}
+	\hbadness = 1331
 	\item Nell'architettura ad alto livello, il \textit{model} è composto dai componenti che contengono la logica dell'applicazione, in particolare da \textit{manager}, \textit{data provider} e \textit{program provider}; la \textit{view} è composta dal \virgolette{codice JSF}; il controller è costituito dalla FacesServlet, una \gls{servlet} che gestisce le richieste delle applicazioni web e inizializza le risorse richieste\footnote{Maggiori dettagli sulla servlet utilizzata da JSF sono forniti in \hyperref[app:javaee]{appendice \ref{app:javaee}}}. Uno schema di questo pattern è rappresentato in \hyperref[fig:mvc-arch]{figura \ref{fig:mvc-arch}}\autocite{bib:jsf-mvc}.
 	\item La view del precedente livello rispecchia a sua volta il pattern, dove il \textit{model} è costituito dalle entità, la \textit{view} è composta dalle pagine \texttt{\gls{XHTML}} (le \gls{facelets}) e il controller è formato dai \textit{backing bean}.
 \end{itemize}
@@ -250,7 +251,7 @@ L'ambiente di sviluppo utilizzato per il B2B è Eclipse. Questo strumento, sebbe
 Il \textit{back-end} del B2B è sviluppato in Java. Questo rappresenta un vantaggio soprattutto per il contesto di sviluppo, il B2B. Essendo strettamente legato ad un sistema gestionale, è istintivo pensare ad oggetti. In particolare, se combinato al gestionale Galileo offerto dall'azienda, questa caratteristica emerge maggiormente. Per quanto riguarda l'aspetto web, l'utilizzo della JavaEE permette di creare applicazioni portabili e scalabili, in grado di interfacciarsi con tecnologie obsolete ma non rimpiazzabili. Un'applicazione server JavaEE fa sì che il programmatore possa concentrarsi più sulla logica dei componenti piuttosto che sull'infrastruttura. Il back-end del B2B fa uso anche del \textit{framework} Spring (in particolare del modulo Core) per la sua implementazione della \textit{dependency injection} (schematizzata in \hyperref[fig:di]{figura \ref{fig:di}}), uno degli aspetti primari dell'\textit{\Gls{IoC}}: contrariamente al comportamento standard, è una configurazione esterna che si occupa di \virgolette{iniettare} le dipendenze al programma principale.
 \begin{figure}
 	\centering
-	\includegraphics[width=14.5cm]{Immagini/DI.png}
+	\includegraphics[width=\linewidth]{Immagini/DI.png}
 	\caption{Creazione dei \textit{bean} tramite \textit{dependency injection}}
 	\label{fig:di}
 \end{figure}

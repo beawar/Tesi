@@ -10,19 +10,95 @@ Innanzitutto, essendo questo portale destinato ad agenti e clienti selezionati, 
 	\item l'amministratore crea un account per l'utente, il quale al primo accesso dovrà cambiare password;
 	\item l'utente effettua una richiesta di registrazione, che l'amministratore dovrà approvare per rendere attivo l'account. Questa seconda modalità è attivabile tramite il pannello di configurazione dello stesso amministratore.
 \end{itemize}
-\begin{figure}[H]
+Una volta in possesso delle credenziali, è quindi possibile accedere al portale. La schermata di login (\hyperref[fig:login1]{figura \ref{fig:login1}}) è la prima pagina a cui si viene indirizzati accedendo al sito tramite URL, sia al primo accesso, sia in caso di sessione già avviata.
+\begin{figure}
 	\centering
-	\includegraphics[width=14.5cm]{Immagini/p1/index.png}
+	\includegraphics[width=\linewidth]{Immagini/p1/index.png}
 	\caption{Pagina di accesso al portale}
+	\label{fig:login1}
 \end{figure}
 
-Nel corso delle settimane di stage, sono state svolte alcune implementazioni sulla base di richieste del cliente. Generalmente i lavori svolti per questo progetto erano basati su analisi svolte precedentemente al mio arrivo, in quanto parti dei preventivi presentati al cliente. Prima di iniziare a modificare il codice, mi è tuttavia stato chiesto di presentare in forma di analisi il flusso delle operazioni necessarie per raggiungere l'obiettivo. Le richieste per questo progetto erano legate principalmente all'aggiunta o modifica di informazioni nei risultati o nei parametri di ricerca delle interrogazioni.
+Una nota va posta sull'utilizzo delle sessioni. La maggioranza degli oggetti caricati dalla libreria Spring Core sono configurati per essere \textit{session scope}. Questo fa sì che le istanze siano legate agli utenti che utilizzano il B2B, in modo tale da evitare possibili conflitti su nuovi ordini o clienti. Una conseguenza diretta è che non è possibile aprire due finestre dello stesso browser per accedere con utenti diversi. La sessione è inoltre impostata per scadere dopo un certo tempo di inattività, costringendo l'utente a rieffettuare il login, sia per motivi di sicurezza, sia per garantire un maggior controllo sui contenuti, impedendo di concludere operazioni su dati che potrebbero essere deprecati.
+
+Nel corso delle settimane di stage, sono state fatte alcune implementazioni sulla base di richieste del cliente. Generalmente i lavori svolti per questo progetto erano basati su analisi effettuate precedentemente al mio arrivo, in quanto parti dei preventivi presentati al cliente. Prima di iniziare a modificare il codice, mi è tuttavia stato chiesto di presentare in forma di analisi il flusso delle operazioni necessarie per raggiungere l'obiettivo. Le richieste per questo progetto erano legate principalmente all'aggiunta o modifica di informazioni nei risultati o nei parametri di ricerca delle interrogazioni.
 
 Vengono ora presentate alcune delle modifiche effettuate su questo progetto.
-\paragraph{Codice cliente}
+
+\subsection{Codice cliente}
 Il codice cliente è un'informazione chiave nel B2B, in quanto contribuisce ad costruire ed individuare gli ordini. Dal codice cliente dipendono il tipo dell'ordine, i listini, gli sconti e le promozioni. Per questo motivo poter effettuare ricerche tramite questo codice agevola gli agenti e l'amministrazione. Una delle prime richieste è stata proprio di introdurre questa informazione nei parametri e nei risultati delle interrogazioni.
 %TODO: inserire screen parametri ricerca
+\begin{figure}
+	\centering
+%	\includegraphics[width=\linewidth]{Immagini/p1/clienti-params.png}
+	\caption{Parametri di ricerca per la ricerca dei clienti}
+	\label{fig:clienti-params}
+\end{figure}
+
 Per agevolare l'utente nell'inserimento di informazioni corrette, è stato predisposto un campo di testo \virgolette{autocompletante}. Una volta digitati tre caratteri nel campo di input viene eseguita una \textit{query} di ricerca nel database per estrarre la lista dei clienti con codice o descrizione (la ragione sociale in termini del gestionale) contenenti la stringa cercata. Questa \textit{query} deve essere il più ottimizzata possibile, in quanto l'utente non deve subire un rallentamento per un'azione come la ricerca, che ha come scopo quello di far raggiungere più rapidamente gli obiettivi. Un approccio alternativo poteva essere quello di caricare la lista di tutti gli utenti nel \textit{backing bean}, per poi utilizzare i metodi offerti dall'interfaccia \texttt{List} per ottenere la sottolista ricercata.
 
+\subsection{Risultati di ricerca}
+Una delle funzionalità più variabili nel B2B è l'ordinamento dei risultati di ricerca, soprattutto nella presentazione dei clienti. Oltre alle modalità di ordinamento comuni (ordine alfabetico, per codice) già predisposti da alcuni componenti Primefaces, che lavora sulle colonne, a volte sono richiesti ordinamenti più complessi.
+
+Nella creazione dell'ordine, la scelta del cliente è solitamente il primo step. I clienti presenti nell'anagrafica sono di due tipi: clienti normali o destinatari. Questi possono poi assumere nella costruzione dell'ordine tre ruoli: cliente di fatturazione, cliente destinatario e, se entrambi i precedenti sono definiti e distinti, è possibile impostare una diversa destinazione. Nello specifico di questo progetto, l'ordinamento richiesto era il seguente: il clienti dovevano essere ordinati alfabeticamente, ma ad ognuno dovevano seguire, se presenti, le varie destinazioni. La lista di partenza era una collezione di \texttt{BusinessPartner}, recuperata direttamente dal database, indistintamente dal ruolo. Per ottenere il risultato voluto sono stati quindi utilizzati i comparatori Java, che permettono di definire per uno stesso oggetto varie regole di ordinamento, utilizzabili poi nelle funzioni di \textit{sorting} offerte dalle collezioni. Il risultato è presentato in \hyperref[fig:listaclienti]{figura \ref{fig:listaclienti}}.
+\begin{figure}
+	\centering
+	%TODO: immagine risutati nardini o valdo
+%	\includegraphics[width=\linewidth]{Immagini/p1/lista-clienti.png}
+	\caption{Scelta del cliente nella creazione dell'ordine}
+	\label{fig:listaclienti}
+\end{figure}
+
+Per rendere più utilizzabile e più accessibile i risultati proposti, questi sono paginati. Primefaces permette di definire il numero di risultati da presentare a priori, indipendentemente dal dispositivo, o dinamicamente, adattando il numero alle dimensioni dello schermo. Questo comportamento dinamico può risultare un vantaggio, in quanto permette di visualizzare il B2B come schermata unica, evitando eventuali scroll che possono nascondere informazioni importanti all'utente, ma anche uno svantaggio, in quanto con dispositivi piccoli e centinaia di risultati possono risultarne migliaia di pagine con poche righe; un risultato non proprio efficiente.
+
+\subsection{Agenda}
+In portale come il B2B, dove sono presenti molte funzionalità, tutte collegate tra loro, il numero di passaggi per completare certe azioni è importante: per facilitare l'utente nel passaggio tra funzioni diverse è possibile inserire collegamenti tra essi, che riassumano una serie di click altrimenti a carico dell'utente. Uno di questi casi è la creazione di appuntamenti.
+
+In questo progetto è stata richiesta la possibilità di crearli direttamente dalla scheda del cliente, impostando già alcuni parametri per l'evento. Sono stati quindi inseriti dei pulsanti al cui click l'utente viene portato all'agenda e viene creato un appuntamento per il cliente specifico, con la possibilità di inserire direttamente le informazioni mancanti. Una volta inserite queste, l'utente (solitamente l'agente), può salvare l'evento e tornare alla scheda del cliente, o continuare la navigazione. Con un semplice pulsante sono stati riprodotte quindi tre azioni: l'utente clicca sulla voce di menu per aprire l'agenda; l'utente clicca sul pulsante per creare un nuovo evento; l'utente seleziona il cliente desiderato dal campo di input \textit{autocomplete}. Sebbene questa possa essere una caratteristica molto semplice, il B2B è pieno di questi tipi di collegamenti, che permettono di completare attività risparmiando complessivamente molto tempo.
+
 \section{Secondo progetto}
+Il secondo progetto su cui si è incentrato lo stage fa parte della categoria dei B2B a sè stanti. Questo progetto è completamente personalizzato e ha ben poco a che fare con lo standard in produzione. Anche se le funzionalità principali sono le stesse, il modo in cui vengono presentate all'utente sono totalmente diverse. Anche graficamente, questo portale rispecchia più gli \textit{e-commerce} B2C piuttosto che gli altri B2B. Essendo così tanto personalizzato, in questo progetto emergono le problematiche analizzate in \hyperref[sec:b2b-smi]{sezione \ref{sec:b2b-smi}}, sia riguardo alla struttura, sia relativamente allo strumento di versionamento correntemente utilizzato.
+
+\subsection{Progettazione}
+Per un approccio iniziale con questo progetto il più consapevole possibile sono stati realizzati dei diagrammi delle classi personalizzate per il cliente. La \hyperref[fig:arch-p2]{figura \ref{fig:arch-p2}} rappresenta l'architettura ad alto livello tramite un diagramma dei \textit{package}.
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{Immagini/p2/architettura.png}
+	\caption{Architettura generale del secondo progetto}
+	\label{fig:arch-p2}
+\end{figure}
+
+Vengono ora riportati i diagrammi delle classi per i \textit{package} dei \textit{backing bean} (\hyperref[fig:bck]{figura \ref{fig:bck}}), dei \textit{manager} (\hyperref[fig:manager]{figura \ref{fig:manager}}) e dei \textit{data provider} (\hyperref[fig:data]{figura \ref{fig:data}}). Nei diagrammi, che riportano solo le classi personalizzate, si può vedere come ogni tipo di entità abbia i corrispettivi oggetti nei vari \textit{package}.
+\begin{figure}
+	\centering
+	\includegraphics[height=\linewidth,angle=90]{Immagini/p2/bck.png}
+	\caption{\textit{Backing bean} personalizzati}
+	\label{fig:bck}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{Immagini/p2/manager.png}
+	\caption{\textit{Manager} e entità personalizzati}
+	\label{fig:manager}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{Immagini/p2/data.png}
+	\caption{\textit{Data provider} personalizzati}
+	\label{fig:data}
+\end{figure}
+
+
+\subsection{Task per invio di newsletter}
+Una delle funzionalità create per questo progetto è stato un task per l'invio di newsletter riguardo a nuove offerte disponibili sul portale. Per realizzare questo compito è stata estesa la classe \texttt{ExtendedTask} del pacchetto standard, che si occupa di creare un thread programmabile tramite interfaccia grafica. Il task si occupa di recuperare dal database le nuove proposte disponibili per tipologia, quindi carica l'elenco dei destinatari, a seconda della lingua carica e traduce il template del messaggio, lo riempie con i dati corretti e infine lo invia al gruppo di destinatari il cui locale (inteso come il gruppo di parametri che definisce la lingua, il paese e qualsiasi altra variante specifica, scelti dall'utente per la visualizzazione dell'interfaccia) corrisponde alla lingua di traduzione del template.
+
+Il recupero delle informazioni avviene anch'esso seguendo alcuni passaggi:
+\begin{itemize}
+	\item vengono caricate dal database tutte le proposte con data di inizio validità corrispondente al parametro di configurazione del task, settabile tramite interfaccia grafica e di default corrispondente al giorno successivo alla data di sistema;
+	\item delle proposte risultanti vengono quindi caricate le immagini dei prodotti;
+	\item l'elenco dei prodotti viene ordinato per tipologia.
+\end{itemize}
+Poiché il numero di proposte è molto variabile, il template è costruito con un unico prodotto per categoria. Questo poi viene replicato tante volte quante sono le proposte, o eliminato nel caso in cui non ve ne siano. In questo caso viene eliminato anche la sezione relativa.
+
+%TODO: inserire template email + immagine email risultato
+
 \section{I due progetti a confronto}
