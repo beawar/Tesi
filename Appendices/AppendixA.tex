@@ -11,7 +11,7 @@ JavaEE definisce un'architettura per lo sviluppo di servizi sotto forma di appli
 Lo sviluppatore può quindi fare affidamento sulla piattaforma per fornire soluzioni ai problemi di comunicazione con il sistema, derivanti proprio dalla struttura a più livelli del progetto.
 
 \subsection{Struttura di un'applicazione distribuita}
-Un'applicazione che utilizza JavaEE è composta da tre parti, presentati in \hyperref[fig:javaee-livelli]{figura \ref{fig:javaee-livelli}}\autocite{bib:javaee-tutorial}\autocite{bib:javaee-tutorial}:
+Un'applicazione che utilizza JavaEE è composta da tre parti, presentati in \hyperref[fig:javaee-livelli]{figura \ref{fig:javaee-livelli}}:
 \begin{itemize}
 	\item \textbf{Client}: la prima parte è la macchina in cui l'utente finale utilizza l'applicazione. A questa è associato un livello omonimo, identificato con il browser e le pagine web in esso renderizzate.
 	\item \textbf{JavaEE Server}: la seconda parte è il server. In esso risiedono due livelli:
@@ -26,6 +26,7 @@ Un'applicazione che utilizza JavaEE è composta da tre parti, presentati in \hyp
 	\includegraphics{Immagini/javaee-struttura.png}
 	\caption{Struttura di un'applicazione distribuita JavaEE}
 	\label{fig:javaee-livelli}
+	\footnotesize\citetitle{bib:javaee-tutorial}. \citeauthor{bib:javaee-tutorial}. \citeyear{bib:javaee-tutorial}.
 \end{figure}
 
 \subsubsection{Componenti}
@@ -49,12 +50,13 @@ Esistono vari tipi di contenitori, che rispecchiano la struttura della piattafor
 	\item contenitore web (es.: Tomcat): gestisce l'esecuzione di pagine web, servlet e dei \textit{bean} che si interfacciano con le pagine;
 	\item contenitore client: gestisce l'esecuzione dei componenti client dell'applicazione.
 \end{itemize}
-La \hyperref[fig:javaee-contenitori]{figura \ref{fig:javaee-contenitori}}\autocite{bib:javaee-tutorial} mostra le relazioni tra i contenitori.
+La \hyperref[fig:javaee-contenitori]{figura \ref{fig:javaee-contenitori}} mostra le relazioni tra i contenitori.
 \begin{figure}
 	\centering
 	\includegraphics{Immagini/javaee-contenitori.png}
 	\caption{Contenitori JavaEE}
 	\label{fig:javaee-contenitori}
+	\footnotesize\citetitle{bib:javaee-tutorial}. \citeauthor{bib:javaee-tutorial}. \citeyear{bib:javaee-tutorial}.
 \end{figure}
 
 \section{Applicazioni web JavaEE}
@@ -72,7 +74,7 @@ Un'applicazione web consiste in componenti web, risorse statiche (es.: immagini)
 \subsection{Struttura di un modulo web}
 Nell'architettura Java EE, un modulo web è la più piccola unità distribuibile e utilizzabile. Esso contiene componenti e file di contenuto statici, quali immagini, che vengono definiti risorse web. Un modulo web JavaEE corrisponde ad un'applicazione web come definita nella specifica Java Servlet.
 
-Il modulo web ha una struttura specifica, presentata in \hyperref[fig:javaee-modulo]{figura \ref{fig:javaee-modulo}}\autocite{bib:javaee-tutorial}: la \textit{directory} di livello superiore è la radice del documento, in cui vengono memorizzate le pagine \texttt{XHTML}, le classi, gli archivi e le risorse. La radice contiene una sottodirectory denominata \texttt{WEB-INF}, che può contenere i seguenti elementi:
+Il modulo web ha una struttura specifica, presentata in \hyperref[fig:javaee-modulo]{figura \ref{fig:javaee-modulo}}: la \textit{directory} di livello superiore è la radice del documento, in cui vengono memorizzate le pagine \texttt{XHTML}, le classi, gli archivi e le risorse. La radice contiene una sottodirectory denominata \texttt{WEB-INF}, che può contenere i seguenti elementi:
 \begin{itemize}
 	\item \texttt{classes}: una directory contenente le i file \texttt{.class}, risultato della compilazione del progetto;
 	\item \texttt{lib}: una directory contenente i file \texttt{.jar} delle librerie richieste dall'applicazione;
@@ -86,6 +88,7 @@ L'installazione del modulo nel contenitore web avviene tramite pacchetto WAR, ch
 	\includegraphics{Immagini/javaee-modulo.png}
 	\caption{Struttura di un modulo web}
 	\label{fig:javaee-modulo}
+	\footnotesize\citetitle{bib:javaee-tutorial}. \citeauthor{bib:javaee-tutorial}. \citeyear{bib:javaee-tutorial}.
 \end{figure}
 
 \section{Servlet}
