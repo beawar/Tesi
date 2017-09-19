@@ -65,30 +65,31 @@ Per un approccio iniziale con questo progetto il più consapevole possibile sono
 	\caption{Architettura generale del secondo progetto}
 	\label{fig:arch-p2}
 \end{figure}
+Il modello rappresenta perfettamente la struttura del progetto standard, ampiamente discussa in \hyperref[sec:b2b-struttura]{sezione \ref{sec:b2b-struttura}}. 
 
-Vengono ora riportati i diagrammi delle classi per i \textit{package} dei \textit{backing bean} (\hyperref[fig:bck]{figura \ref{fig:bck}}), dei \textit{manager} (\hyperref[fig:manager]{figura \ref{fig:manager}}) e dei \textit{data provider} (\hyperref[fig:data]{figura \ref{fig:data}}). Nei diagrammi, che riportano solo le classi personalizzate, si può vedere come ogni tipo di entità abbia i corrispettivi oggetti nei vari \textit{package}. Non sono riportate le relazioni tra le classi in quanto richiederebbero un diagramma troppo grande per presentarlo in questa relazione; i seguenti hanno quindi lo scopo di mostrare applicati i concetti presentati in \hyperref[sec:b2b-struttura]{sezione \ref{sec:b2b-struttura}}.
-\begin{figure}[H]
-	\centering
-	\includegraphics[height=\linewidth,angle=90]{Immagini/p2/bck.png}
-	\caption{\textit{Backing bean} personalizzati}
-	\label{fig:bck}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[height=0.9\linewidth,angle=90]{Immagini/p2/manager.png}
-	\caption{\textit{Manager} e entità personalizzati}
-	\label{fig:manager}
-\end{figure}
-\begin{figure}[H]
-	\centering
-	\includegraphics[width=\linewidth]{Immagini/p2/data.png}
-	\caption{\textit{Data provider} personalizzati}
-	\label{fig:data}
-\end{figure}
+%Vengono ora riportati i diagrammi delle classi per i \textit{package} dei \textit{backing bean} (\hyperref[fig:bck]{figura \ref{fig:bck}}), dei \textit{manager} (\hyperref[fig:manager]{figura \ref{fig:manager}}) e dei \textit{data provider} (\hyperref[fig:data]{figura \ref{fig:data}}). Nei diagrammi, che riportano solo le classi personalizzate, si può vedere come ogni tipo di entità abbia i corrispettivi oggetti nei vari \textit{package}. Non sono riportate le relazioni tra le classi in quanto richiederebbero un diagramma troppo grande per presentarlo in questa relazione; i seguenti hanno quindi lo scopo di mostrare applicati i concetti presentati in \hyperref[sec:b2b-struttura]{sezione \ref{sec:b2b-struttura}}.
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[height=\linewidth,angle=90]{Immagini/p2/bck.png}
+%	\caption{\textit{Backing bean} personalizzati}
+%	\label{fig:bck}
+%\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[height=0.9\linewidth,angle=90]{Immagini/p2/manager.png}
+%	\caption{\textit{Manager} e entità personalizzati}
+%	\label{fig:manager}
+%\end{figure}
+%\begin{figure}[H]
+%	\centering
+%	\includegraphics[width=\linewidth]{Immagini/p2/data.png}
+%	\caption{\textit{Data provider} personalizzati}
+%	\label{fig:data}
+%\end{figure}
 
 
 \subsection{Task per invio di newsletter}
-Una delle funzionalità create per questo progetto è un task per l'invio di newsletter riguardo a nuove offerte disponibili sul portale. Per realizzare questo compito è stata estesa la classe \texttt{ExtendedTask} del pacchetto standard, che si occupa di creare un thread il cui avvio è programmabile tramite interfaccia grafica. Il task si occupa di recuperare dal database le nuove proposte disponibili per tipologia, quindi carica l'elenco dei destinatari, a seconda della lingua carica e traduce il template del messaggio, lo compila con i dati corretti e infine lo invia al gruppo di destinatari il cui locale (inteso come il gruppo di parametri che definisce la lingua, il paese e qualsiasi altra variante specifica, scelti dall'utente per la visualizzazione dell'interfaccia) corrisponde alla lingua di traduzione del template.
+Una delle funzionalità create per questo progetto è un task per l'invio di newsletter riguardo a nuove offerte disponibili sul portale. Per realizzare questo compito è stata estesa la classe del pacchetto standard dei task, che si occupa di creare un thread il cui avvio è programmabile tramite interfaccia grafica. Il task si occupa di recuperare dal database le nuove proposte disponibili per tipologia, quindi carica l'elenco dei destinatari, a seconda della lingua carica e traduce il template del messaggio, lo compila con i dati corretti e infine lo invia al gruppo di destinatari il cui locale (inteso come il gruppo di parametri che definisce la lingua, il paese e qualsiasi altra variante specifica, scelti dall'utente per la visualizzazione dell'interfaccia) corrisponde alla lingua di traduzione del template.
 
 Il recupero delle informazioni avviene anch'esso seguendo alcuni passaggi:
 \begin{itemize}
@@ -110,8 +111,24 @@ Allo sviluppo di questa funzionalità è seguito un lavoro di ottimizzazione del
 Il risultato è stato ottenuto limitando gli accessi alle due fonti dei dati, sfruttando i \textit{prepared statement} per creare interrogazioni che, nonostante la maggior complessità rispetto alle precedenti, con tempi di esecuzione relativi anche più lunghi, risultavano complessivamente più precise e più rapide. Allo stesso modo il caricamento delle immagini è stato reso massivo e non più a livello individuale per prodotto. Come risultato finale è stato raggiunto un dimezzamento dei tempi per la creazione del primo \textit{export}, mentre le successive richieste sono ora eseguite in pochi secondi.
 
 \section{I due progetti a confronto}
-I due progetti sono dunque molto diversi tra loro, nonostante la base sia la stessa. La prima e più evidente differenza è la grafica e ciò dipende oltre che dal tipo di prodotti anche dalla professione del personale addetto alla gestione del B2B. Mentre per il primo progetto ad occuparsi del portale è un responsabile \Gls{CED}, per il secondo progetto il referente è un grafico. Questo ha determinato un'attenzione molto maggiore ai dettagli grafici, a volte anche a scapito dell'usabilità. Vengono ora presentate alcune delle funzionalità comuni, evidenziandone le differenze.
+I due progetti sono dunque molto diversi tra loro, nonostante la base sia la stessa. La prima e più evidente differenza è la grafica e ciò dipende oltre che dal tipo di prodotti anche dalla professione del personale addetto alla gestione del B2B. Mentre per il primo progetto ad occuparsi del portale è un responsabile \Gls{CED}, per il secondo progetto il referente è un grafico. Questo ha determinato un'attenzione molto maggiore ai dettagli grafici, a volte anche a scapito dell'usabilità. La differenza si percepisce già dalla \textit{home page} dei due portali (\hyperref[fig:home-1]{figura \ref{fig:home-1}} e \hyperref[fig:home-2]{figura \ref{fig:home-2}}): nel primo progetto gli elementi in evidenza riguardano il fatturato e più in generale i dati di vendita; ha quindi più importanza il contenuto rispetto alla presentazione. Nel secondo progetto, al contrario, hanno un forte impatto le immagini dei prodotti e delle offerte, che occupano l'intera pagina e sono più d'interesse per il cliente finale che per l'agente.
 
+Oltre alla grafica, anche le funzionalità sono strutturate diversamente e l'utente nei due portali svolge azioni differenti per raggiungere lo stesso scopo, come ad esempio la creazione di un ordine. La diversità, che come visto in \hyperref[sec:fattori]{sezione \ref{sec:fattori}} rappresenta uno dei fattori chiave per il successo del B2B, rispecchia di fatto le esigenze del cliente: il primo è un portale funzionale, pensato per l'utilizzo da parte degli agenti e degli uffici al fine di snellire le pratiche di gestione degli ordini; il secondo è pensato come un \textit{e-commerce}, dove gli ordini e le vendite dipendono dalla presentazione del prodotto più che sulla sua utilità o qualità. Passano quindi in secondo piano i dettagli tecnici dei prodotti, presentati solamente in aree specifiche, come la scheda prodotto.
+
+A conferma di quanto detto, vengono ora presentate le principali differenze, sia in termini di grafica che di contenuto, nelle funzionalità comuni.
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{Immagini/p1/home.png}
+	\caption{Home page del progetto 1}
+	\label{fig:home-1}
+\end{figure}
+\begin{figure}
+	\centering
+	\includegraphics[width=\linewidth]{Immagini/p2/home.png}
+	\caption{Home page del progetto 2}
+	\label{fig:home-2}
+\end{figure}
+\newpage
 \subsection{Ricerca interrogazioni}
 Il pannello di ricerca delle interrogazioni è probabilmente l'unica cosa che i due progetti hanno in comune (\hyperref[fig:params-1]{figura \ref{fig:params-1}} e \hyperref[fig:clienti-params-2]{figura \ref{fig:clienti-params-2}}). Nel secondo progetto però vi è una divergenza nel modo in cui il componente è presentato all'interno delle varie interrogazioni. Per alcune è stato deciso di inserire le \textit{label} dopo ai campi di input (\hyperref[fig:params-2]{figura \ref{fig:params-2}}). Questo tipo di presentazione può creare confusione anche per un utilizzatore consuetudinario, che nelle altre interrogazioni, negli altri \textit{e-commerce} e in generale in qualsiasi altro sito web, è abituato a vedere le etichette descrittive sopra o a sinistra dei relativi campi.
 \begin{figure}[H]
@@ -179,3 +196,10 @@ Una nota va posta sulla pagina che permette di modificare i carrelli (\hyperref[
 	\caption{Form di modifica dei dati di testata dell'ordine}
 	\label{fig:carrello-form}
 \end{figure}
+
+\subsection{Considerazioni finali}
+Per concludere sono necessarie alcune considerazioni sui progetti presentati e sulla loro implementazione. Il primo progetto come detto rispecchia il B2B standard: questo favorisce lo sviluppo di nuove funzionalità e l'aggiornamento del portale personalizzato con le nuove release dello standard. L'interfaccia è pensata e realizzata per la categoria specifica degli agenti, i quali hanno bisogno di contenuto tecnico e procedure lineari per il completamento delle operazioni tipiche, da svolgere in breve tempo.
+
+Il secondo progetto per come è strutturato è destinato ad un pubblico molto più vario e cerca di riproporre tutte le caratteristiche di un B2C. Questa scelta comporta alcuni svantaggi per 4words, la \textit{business unit} produttrice, come la minore manutenibilità rispetto agli altri B2B e la necessità di assegnare il cliente a più programmatori contemporaneamente, per garantire continuità e copertura nell'assistenza. Per la maggior parte degli altri clienti, invece, questo non è necessario, in quanto è sufficiente la conoscenza del portale standard per poter dare supporto.
+
+D'altro canto, le due versioni del B2B evidenziano la flessibilità di questo progetto e la capacità di adattarsi a contesti diversi, proponendo soluzioni appunto molto differenti per rispettare a pieno le strategie e le volontà del cliente. Per chi compra il B2B, ciò è sicuramente un vantaggio.
