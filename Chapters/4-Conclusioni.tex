@@ -2,6 +2,14 @@
 \begin{flushright}
 	\parbox{13cm}{\small In questo ultimo capitolo vengono tratte alcune conclusioni, sia per quanto riguarda gli obiettivi, sia a livello personale.}
 \end{flushright}
+
+\section{Resoconto delle attività}
+Durante lo stage ho avuto la possibilità di analizzare il B2B sviluppato e venduto dall'azienda, quindi di progettare e implementare alcune personalizzazioni richieste dai clienti. Al periodo di formazione frontale iniziale sono seguite un paio di settimane in cui ho studiato la struttura e le procedure con cui il prodotto viene realizzato in azienda, applicando i concetti appresi nella settimana precedente a due casi reali, ovvero i progetti presentati nel capitolo precedente. Per fare questo, ho seguito il tutor aziendale nei suoi appuntamenti, svolgendo le attività che mi venivano di volta in volta assegnate. 
+
+Inizialmente mi sono occupata di individuare e correggere alcune anomalie, svolgendo il ruolo di tester, per poi dedicarmi all'implementazione di nuove funzionalità, progettando il sistema, sviluppandolo e testandolo su ambienti dedicati. Uno di questi lavori è stato proprio il task per le newsletter, descritto in \hyperref[sec:task]{sezione \ref{sec:task}}. Al termine dello stage avevo quindi acquisito la capacità di analizzare le richieste, svilupparle e infine pubblicarle in ambiente di produzione del cliente.
+
+In questa relazione ho elaborato l'analisi condotta nelle prime settimane, estendendo quanto emerso ai casi pratici a cui mi sono dedicata nel secondo periodo di stage.
+
 \section{Considerazioni sul B2B}
 Il B2B è dunque un'applicazione strettamente legata al gestionale offerto dall'azienda, al quale fa da supporto, ma che impone alcuni vincoli di progettazione. L'utilizzo dell'AS/400 come server costringe all'utilizzo del relativo database per la lettura dei dati, con tabelle difficilmente modificabili e un numero di campi limitato e non incrementabile. Sebbene siano stati predisposti tabelle e campi dedicati al portale, capita che per progettare nuove implementazioni si renda necessario scendere a compromessi con flag poco comprensibili per rappresentare variabili anche complesse. Per ovviare a questo problema in alcuni progetti è stato creato un database MySQL aggiuntivo, il quale, sebbene risolva i problemi appena citati, introduce di fatto complicazioni nella sincronizzazione e ridondanza dei dati.
 

@@ -88,7 +88,7 @@ Il modello rappresenta perfettamente la struttura del progetto standard, ampiame
 %\end{figure}
 
 
-\subsection{Task per invio di newsletter}
+\subsection{Task per invio di newsletter}\label{sec:task}
 Una delle funzionalità create per questo progetto è un task per l'invio di newsletter riguardo a nuove offerte disponibili sul portale. Per realizzare questo compito è stata estesa la classe del pacchetto standard dei task, che si occupa di creare un thread il cui avvio è programmabile tramite interfaccia grafica. Il task si occupa di recuperare dal database le nuove proposte disponibili per tipologia, quindi carica l'elenco dei destinatari, a seconda della lingua carica e traduce il template del messaggio, lo compila con i dati corretti e infine lo invia al gruppo di destinatari il cui locale (inteso come il gruppo di parametri che definisce la lingua, il paese e qualsiasi altra variante specifica, scelti dall'utente per la visualizzazione dell'interfaccia) corrisponde alla lingua di traduzione del template.
 
 Il recupero delle informazioni avviene anch'esso seguendo alcuni passaggi:
